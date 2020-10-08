@@ -1,11 +1,10 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <Drawer v-model="drawer" :title="title" />
     <v-app-bar flat app absolute>
-      <v-app-bar-nav-icon
-        class="hidden-md-and-up"
-        @click.stop="drawer = !drawer"
-      />
+      <v-btn fab small class="hidden-md-and-up" @click.stop="drawer = !drawer">
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
       <v-spacer />
       <v-text-field
         hide-details
@@ -58,7 +57,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-main>
@@ -68,6 +67,23 @@
         &copy; {{ new Date().getFullYear() }} {{ title }}
       </span>
     </v-footer>
+
+    <!-- settings drawer toggler -->
+    <v-btn
+      fab
+      absolute
+      fixed
+      right
+      height="50"
+      width="50"
+      color="primary"
+      style="top: 50%"
+      @click="customize = !customize"
+    >
+      <v-icon>mdi-tools</v-icon>
+    </v-btn>
+
+    <Customizer v-model="customize" />
   </v-app>
 </template>
 
@@ -75,6 +91,7 @@
 export default {
   data: () => ({
     drawer: false,
+    customize: false,
     notifications: [
       'Mike, John responded to your email',
       'You have 5 new tasks',
@@ -101,6 +118,8 @@ export default {
 .v-application .title,
 .v-application .subtitle-1,
 .v-application .subtitle-2,
+.v-application .body-1,
+.v-application .body-2,
 .v-application .caption {
   font-family: 'Poppins', Arial, Helvetica, sans-serif !important;
 }
